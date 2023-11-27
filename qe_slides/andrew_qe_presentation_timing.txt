@@ -1,0 +1,42 @@
+pg3. Outline (30 sec)
+pg4. What is Non-autoregressive sequence generation? (11 min)
+    pg4. What is autoregressive sequence generation? (1 min)
+        Causal
+        from left to right
+        Example: machine translation (Figure of model)
+    pg5. Where has autoregressive sequence generation been used? (1 min)
+        Example: GPT2
+        Focus on machine translation
+    pg6. Formula (30 sec)
+    pg7. What is Non-autoregressive sequence generation?
+        Formula (30 sec)
+    pg8. What is the benefit of Non-autoregressive sequence generation? (30 sec)
+        Speed
+        Less Computation
+        target audio: people with no large gpu
+    pg9. Why do we need non-autoregressive sequence generation back and now?
+        Transformer (1 min)
+        Increased model size (30 sec)
+    ph11. How is non-autoregressive sequence generation? (1.5 min)
+        1st approach (40 sec)
+        2nd approach (40 sec)
+    pg13. What are the curent limitations of non-autoregressive sequence generation? 
+        Tradeoff (45 sec)
+            Explain (30 sec)
+            Show plot (15 sec)
+        Complex solutions required (2 min)
+    pg17. Research motivations (30 sec)
+    pg18. Contribution (30 sec)
+pg19. Paper 1 (11 min)
+    pg19. Transfer Learning for Non-autoregressive sequence generation    (1min)
+    pg20. Related work (1 min)
+    pg21. Notation (30 sec)
+    pg22. Model variant (1 min)
+    pg23. Experiment setup (2 min)
+    pg24. Results and findings (5.5 min)
+pg32. Paper 2 (7 min)
+    pg32. argmax decoder (30 sec)
+    pg33. Hysteresis decoding (1.5 min)
+    pg34. Results and findings (5.5 min)
+pg41. Conclusion (45 sec)
+pg42. Future work (45 sec)

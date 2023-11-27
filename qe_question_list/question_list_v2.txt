@@ -1,0 +1,325 @@
+Title: Domain Adaptation approaches for end2end ASR models (48.5 pg)
+
+0. Abstract
+    What is domain adaptation?
+    What is the problem?
+    What are the adaptation approaches this thesis focus on to solve the problem?
+    What is layerwise adaptation?
+        What are some previous works? 
+        What is the search problem?
+        What is the search problem expensive?
+        How is this thesis solving it?
+    What is TTS data adaptation?
+        What are some previous works?
+        How does TTS data diversity matters?
+        Why does using a single TTS reduce diversity?
+        How is this thesis solving it?
+    What is the result?
+        For layerwise adaptation?
+            What does it show?
+        For TTS data adaptation?
+            What does it show?
+
+1. Introduction (5 pg)
+    1.1 Background (1.5 pg)
+        1.1.1 What is ASR? (0.3 pg)
+            a. What is ASR?
+            b. What is the significance of ASR?
+            c. What makes a good ASR?
+        1.1.2 What is deep learning?
+            a. What is a deep learning model?
+            c. What is model training?
+            c. How has deep learning helped ASR?
+        1.1.3 What is the out-of-domain/domain mismatch problem?
+        1.1.4 How does ASR adpatation solve the problem?
+    1.2 Motivation (3 pg)
+        1.2.1 What are the problems of ASR adaptation?
+        1.2.2 What kind of adaptation will this thesis focus on to solve the problems?
+        1.2.3 What is model adaptation?
+            a. What is overfitting in model adaptation?
+                This means the model has memorized the transcription to every audio sample in the training data, but does not learn the underlying characteristics that defines the transcription of the audio.
+            b. How does weight freezing solve the problem?
+            c. What is layer-wise adaptation?
+            d. What are some current works on layer-wise adaptation?
+            e. What is the problem of current layer-wise adapataion?
+        1.2.4 What is text-only adaptation?
+            a. What is text-only data scarcity problem?
+            b. How doese TTS synthesized data adaptation solve the problem?
+            c. What are some current works on TTS synthesized data adaptation?
+            d. What is the problem of current TTS synthesized data adaptation?
+    1.3 Contribution
+        a. How is this thesis solving the problem?
+    1.4 Report Outline (0.5 pg)
+
+2. Literature Review (19 pg)
+    2.1 Overview of chapter (1pg)
+        2.1.1 What does this chapter include? 
+            a. What is the overview of end-to-end ASR systems?
+            b. What is the overview of ASR adaptation?
+        2.1.2 Overview of chapter organization
+    2.2 End-to-end ASR overview (7 pg)
+        2.2.1 Why do we need end-to-end ASR? (1 pg)
+            a. What are statistical and hybrid ASR?
+            b. What is end-to-end ASR?
+            c. What are the advantages of end-to-end ASR over statistical/hybrid ASR?
+            d. What are the research goals for end-to-end ASR?
+                i. accuracy
+                    - What is the WER progress on a benchmark dataset LibriSpeech?
+                ii. streaming latency / model efficiency
+            e. What are the research directions to improve offline accuracy?
+                i. model architecture
+                ii. learning paradigm
+                iii. data engineering
+        2.2.2 How is the development of end-to-end ASR model architecture? (5 pg)
+            a. What are explicit/implicit alignment end-to-end approaches?
+                i. explicit: Loss computed from the frame level logits: CTC, RNNT, RNA
+                ii. implicit: Loss computed from the text token level logits: AED
+            b. What is the advantage of implicit alignment end-to-end approaches?
+                i. More flexible
+                ii. Less memory consumption during training
+            c. How is the development of AED model architectures?
+                    i. LAS
+                    ii. Transformer (Whisper)
+                    iii. Conformer
+                    iv. E-Branchformer
+        2.2.3 Why do we need a different learning paradigm? (1 pg)
+            a. What is supervised learning?
+            b. What is the advantage of unsupervised and self-supervised learning over supervised learning?
+            c. What are some examples?
+                i. Wav2Vec2
+                ii. Hubert
+    2.3 End-to-end ASR Adaptation Overview (10 pg)
+        2.3.1 Why do we need ASR adaptation? (1 pg)
+            a. What are the domains to adapt for ASR?
+        2.3.2  What is the taxonomy of ASR adaptation? (3 pg)
+            a. What are the research directions for ASR adaptation?
+                i. Regularized adatation
+                ii. Knowledge injection
+                iii. Efficient Adaptation
+                iv. Adaptation approaches common for statistical/hybri models
+        2.3.3 What is the text-only adaptation problem? (3 pg)
+            a. How deos text-to-encoder model solve the problem?
+            b. What is the advantage of decoder pretraining over text-to-encoder model?
+            c. What is the advantage of TTS data adaptation over decoder pretraining?
+        2.3.4 What is regularized adaptation? (3 pg)
+            a. How does freezing parameters help regularization?
+            b. How to regularizing parameters?
+            c. What is the advantage of freezing parameters over regularizing parameters?   
+    2.4 Summary of chapter (1pg)
+        2.4.1 End-to-end model progress
+        2.4.2 text-only adaptation
+        2.4.3 regularized adaptation
+
+3. Baseline End-to-end Transformer ASR adaptation (7.5 pg)
+    3.1 Overview of chapter (1 pg)
+        a. What does this chapter include?
+            i. Conformer model adaptation
+            ii. Whisper model adaptation
+        b. Overview of chapter organization
+    3.2 Corpus
+        3.2.1 Existing corpus: (1 pg)
+            a. Librispeech, Tedlium, Common Voice, Switchboard, Fisher, Voxforge, AISHELL, Whisper dataset
+        3.2.2 Corpus selection: (1.5 pg)
+            a. General English Domain: Librispeech
+            b. General Chinese Domain: AISHELL
+            c. OOV/rare words Domain: IMDA part 2
+        3.2.3 What is WER? (1 pg)
+    3.3 Conformer Adaptation (1.5 pg)
+            3.3.1 Network configurations for Confomer models
+            3.3.2 Dataset and pretraining configuration
+            3.3.3 Dataset and adaptation training configuration
+            3.3.4 WER results on Librispeech and IMDA part 2
+            3.3.5 Analysis on results and problems
+    3.4 Whisper Adaptation (1.5 pg)
+            3.4.1 Network configurations for Whisper models
+            3.4.2 Dataset and pretraining configuration
+            3.4.3 Dataset and adaptation training configuration
+            3.4.4 WER results on Librispeech and AISHELL
+            3.4.5 Analysis on results and problems
+    3.5 Summary of chapter (1 pg)
+            3.5.1 Adaptation Baselines
+            3.5.2 Analysis on results and problems
+
+4. ASR Adaptation using layer-wise freezing and TTS synthesized data (13 pg)
+    4.1 Overview of chapter (1 pg)
+        4.1.1 What does this chapter include?
+        4.1.2 Overview of chapter organization
+    4.2 ASR Model Adaptation for Rare Words Using Synthetic Data Generated by Multiple Text-To-Speech Systems (5.5 pg)
+        4.2.1 What is the motivation? (0.5 pg)
+        4.2.2 What is the related work that inspired this work? (0.5 pg)
+        4.2.3 Methodology (2 pg)
+        4.2.4 Experimental Setup (1 pg)
+        4.2.5 Results and Discussion (1.5 pg)
+    4.3 Layerwise Adaptation by using per-layer loss for automatic layer selection (5.5 pg)
+        4.3.1 What is the motivation? (0.5 pg)
+            What is the domain mismatch problem?
+            What is adaptation?
+            What is overfitting and catastrophic forgetting in the contect of ASR adaptation?
+            How does regularized adaptation solves overfitting and catastrophic forgetting?
+            What are some methods of regularized adaptation?
+            What is layer-wise adaptation?
+            How does previous methods search for layers to adapt?
+            What is the expensive search issue in layer-wise adaptation?
+            How does the proposed method solve the problem?
+            What are the contributions?
+        4.3.2 What is the related work that inspired this work? (0.5 pg)
+            What is parameter freezing?
+                What is bias/layer/normlayer freezing?
+            What is layer freezing?
+            Why is its advantage over other freezing methods?
+                It is more intuitive to freeze a layer when each layer is found to contribute more to a different subtask
+            What is the expensive search problem?
+            What is task agnostic prunning?
+            How does it relate to layerwise prunning?
+            What is the limitation of the ump approach?
+                It still allows training of the pruned weights
+                It does not consider the training dynamics: The importance of weights to a task may change during training
+                It is not obvious how overfitting or catastrophic forgetting is solved by the method
+        
+            ii. What is the advantage of layer-wise freezing over parameter-wise freezing?
+            iii. What are the different layer-wise freezing approaches?
+            iv. What is the problem?
+            [1] Pruning-then-Expanding Model for Domain Adaptation of Neural Machine Translation
+            [2] Pada: Pruning assisted domain adaptation for self-supervised speech representations
+        4.3.3 Methodology (2 pg)
+        4.3.4 Experimental Setup (1 pg)
+        4.3.5 Results and Discussion (1.5 pg)
+    4.4 Summary of chapter (1 pg)
+    
+5. Conclusion and future work (3 pg)
+    5.1 Conclusion (2 pg)
+    5.2 Future work (1 pg)
+
+
+TODO:
+    Chapter 2: Add citations to taxonomy and WER progress figure
+
+
+<gpt>
+<survey>
+<paper>
+<web>
+
+ASR adaptation taxonomy
+Figure created in: https://app.creately.com/d/AEJbxSTSaO0/edit
+
+Multi-domain adaptation
+Single domain adaptation
+Regularized adatation
+    data balancing
+        uniform data sampling [1-3]
+    datawise learning rate 
+        scalar leraning rate [4]
+    L2 regularization [34]
+    KullbackLeibler divergence [35]
+    adversarial multitask learning [36]
+    Efficient adaptation also: adapt certain layers or subset of parameters [37-39], bias [45]
+    Continual Learning [49]
+Knowledge injection
+    Condition on language label
+        Concatenate one hot domain embedding to input sequence of RNN encoder [1], encoder and decoder [6]
+        Learnt language embedding, condition on both encoder and decoder RNN [5]
+    Condition on speaker label
+        Concatenate i-vector [21-23,41] or x-vector [51] to every frame of acoustic representation
+    Condition on environment label
+        Append noise estimate to input vector [24]
+Efficient adaptation
+    Adapter [1,47,48,50]
+    model fusion
+        cluster adaptive training, weighted sum of domain specific outputs added to layer output[6,7], for statistical models [12,13]
+    low rank
+        parameterizes the affine transformation of a hidden layer as a linear interpolation of a set of bases [26]
+        singular value decomposition (SVD) pruning followed by  linear layer in lower dimensional space [27,28,29]
+        low-rank plus diagonal (LRPD) decomposition: more efficient than SVD [30]
+        LHUC: linearly re-combines hidden units by learning a scaling factor for each hidden unit [31,32], Bayesian learning for regularization [40]
+        LoRA [46], Sparsely Shared LoRA: Share low rank matrix [43],  AdaLoRA: adaptively allocates the parameter budget among weight matrices according to their importance score [63]
+    shifting and scaling parameters
+         in layer normalization layer
+    prompt tuning [44]
+    text-only adaptation
+        text-to-encoder [54]
+        decoder pretraining [52]
+        LM fusion: deep fusion [60], cold fusion [61], component fusion [62], Factorized attention [59]
+        TTS data synthesis [53,55-58]
+Adaptations common for statistical/hybrid models
+    model adaptation
+        maximum likelihood linear regression (MLLR): mean or variance of Gaussian mixtures is transformed by a linear transformation [8]
+        adaptive training: Two distinct sets of parameters are introduced to separately model speech and non-speech variabilities
+            speaker adaptive training (SAT): MLLR transformation is used to represent a speaker during both training and testing. . A standard HMM is used as the canonical model [11,64]
+        feature discriminative linear regression (fDLR) and L0, L1 regularizations [65]
+        output-feature discriminative linear regression (oDLR): adaptation on the hidden layer closest to the output side [20]
+    feature adaptation
+        dimension reduction
+            LDA: Linear discriminant analysis [18,19]
+            HLDA: heteroscedastic discriminant analysis and further applying a diagonalizing linear transformation [15]
+        VTLN: warps the frequency axis to normalize the effect of varying vocal-tract resonances [14,16]
+        fMLLR: a linear transformation is used to adapt both mean and variance simultaneously [9,10]
+        
+
+
+
+[1] Large-Scale Multilingual Speech Recognition with a Streaming End-to-End Model
+[2] Very deep convolutional neural networks for multilingual lvcsr
+[3] Data balancing for efficient training of hybrid ann/hmm automatic speech recognition systems
+[4] Improved multilingual training of stacked neural network acoustic models for low resource languages
+[5] MULTILINGUAL SPEECH RECOGNITION WITH A SINGLE END-TO-END MODEL
+[6] MULTI-DIALECT SPEECH RECOGNITION WITH A SINGLE SEQUENCE-TO-SEQUENCE MODEL
+[7] Cluster adaptive training for deep neural network based acoustic model
+[8] Maximum likelihood linear regression for speaker adaptation of continuous density hidden Markov models
+[9] Speaker adaptation using constrained estimation of Gaussian mixtures
+[10] Maximum likelihood linear transformations for HMM-based speech recognition
+[11] A compact model for speaker-adaptive training
+[12] Cluster adaptive training for speech recognition
+[13] Cluster adaptive training of hidden Markov models
+[14] Vocal tract length normalisation approaches to DNN-based children's and adults' speech recognition
+[15] Maximum Likelihood Discriminant Feature Spaces
+[16] Vocal Tract Length Normalization for LVCSR
+
+[18] Linear Discriminant Analysis for improved large vocabulary continuous speech recognition
+[19] Optimal linear feature space transformations for semi-continuous hidden Markov models
+[20] ADAPTATION OF CONTEXT-DEPENDENT DEEP NEURAL NETWORKS FOR AUTOMATIC SPEECH RECOGNITION
+[21] Speaker adaptation of neural network acoustic models using i-vectors
+[22] IMPROVING DNN SPEAKER INDEPENDENCE WITH I-VECTOR INPUTS
+[23] I-vector-based speaker adaptation of deep neural networks for french broadcast audio transcription
+[24] An investigation of deep neural networks for noise robust speech recognition
+[25] Occam’s adaptation: A comparison of interpolation of bases adaptation methods formulti-dialect acoustic modeling with lstms.
+[26] Factorized Hidden Layer Adaptation for Deep Neural Network Based Acoustic Modeling
+[27] Speaker adaptation of hybrid NN/HMM model for speech recognition based on singular value decomposition
+[28] Singular value decomposition based low-footprint speaker adaptation and personalization for deep neural network
+[29] Intermediate-layer DNN adaptation for offline and session-based iterative speaker adaptation
+[30] Low-rank plus diagonal adaptation for deep neural networks
+[31] Learning hidden unit contributions for unsupervised speaker adaptation of neural network acoustic models
+[32] Differentiable pooling for unsupervised speaker adaptation
+[33] Dynamic layer normalization for adaptive neural acoustic modeling in speech recognition
+[34] Speaker adaptation of context dependent deep neural networks
+[35] Kl-divergence regularized deep neural network adaptation for improved large vocabulary speech recognition
+[36] Adversarial speaker adaptation 2019
+[37] Adaptation of context-dependent deep neural networks for automatic speech recognition
+[38] Hermitian polynomial for speaker adaptation of connectionist speech recognition systems
+[39] Factorized hidden layer adaptation for deep neural network based acoustic modeling
+[40] BLHUC: Bayesian learning of hidden unit contributions for deep neural network speaker adaptation
+[41] Speaker-aware speech transformer 2019
+[42] TOWARDS A UNIFIED VIEW OF PARAMETER-EFFICIENT TRANSFER LEARNING
+[43] Sparsely Shared LoRA on Whisper for Child Speech Recognition
+[44] Prompting the Hidden Talent of Web-Scale Speech Models for Zero-Shot Task Generalization
+[45] Bitfit: Simple parameter-efficient fine-tuning for transformer-based masked language-models
+[46] Lora: Low-rank adaptation of large language models
+[47] EFFICIENT ADAPTER TRANSFER OF SELF-SUPERVISED SPEECH MODELS FOR AUTOMATIC SPEECH RECOGNITION
+[48] Adapt-and-adjust: Overcoming the long-tail problem of multilingual speech recognition
+[49] Continual-wav2vec2: an Application of Continual Learning for Self-Supervised Automatic Speech Recognition
+[50] Contextual Adapters for Personalized Speech Recognition in Neural Transducers
+[51] Acoustic Model Adaption Using x-vectors for Improved Automatic Speech Recognition
+[52] PRE-TRAINING TRANSFORMER DECODER FOR END-TO-END ASR MODEL WITHUNPAIRED TEXT DATA
+[53] Improving speech recognition using consistent predictions on synthesized speech
+[54] Back-translation-styledata augmentation for end-to-end asr
+[55] USING SYNTHETIC AUDIO TO IMPROVE THE RECOGNITION OF OUT-OF-VOCABULARY WORDS IN END-TO-END ASR SYSTEMS
+[56] Leveraging sequence-to-sequence speech synthesis for enhancing acoustic-to-word speech recognition
+[57] Improving speech recognition with augmented synthesized data and conditional model training
+[58] Data augmentation for asr using tts via a discrete representation
+[59] FACTORIZED AED: FACTORIZED ATTENTION-BASED ENCODER-DECODER FOR TEXT-ONLY DOMAIN ADAPTIVE ASR
+[60] On using monolingual corpora in neural machine translation
+[61] Cold fusion: Training seq2seq models together with language models
+[62] Component fusion: Learning replaceable language model component for end-to-end speech recognition system
+[63] Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning
+[64] Towards Speaker Adaptive Training of Deep Neural Network Acoustic Models
+[65] Feature engineering in  context\-dependent deep neural networks for conversational  speech transcription

@@ -1,0 +1,128 @@
+#Title: Domain Adaptation approaches for end2end ASR models (48.5 pg)
+
+1. Introduction (5 pg)
+    1.1 Background (1 pg)
+        1.1.1 What is ASR? (0.3 pg)
+            a. What is ASR?
+            b. What is the significance of ASR?
+            c. What makes a good ASR?
+        1.1.2 What is the out-of-domain/domain mismatch problem?
+        1.1.3 How does ASR adpatation solve the problem?
+        1.1.4 What kind of adaptation will this thesis focus on?
+    1.2 Motivation (3.5 pg)
+        1.2.1 What is model adaptation?
+            a. What is overfitting in model adaptation?
+            b. How does weight freezing solve the problem?
+            c. What is layer-wise adaptation?
+            d. What are some current works on layer-wise adaptation?
+            e. What is the problem of current layer-wise adapataion?
+        1.2.2 What is text-only adaptation?
+            a. What is text-only data scarcity problem?
+            b. How doese TTS synthesized data adaptation solve the problem?
+            c. What are some current works on TTS synthesized data adaptation?
+            d. What is the problem of current TTS synthesized data adaptation?
+    1.3 Contribution
+        a. How is this thesis solving the problem?
+    1.4 Report Outline (0.5 pg)
+
+2. Literature Review (19 pg)
+    2.1 Overview of chapter (1pg)
+        2.1.1 What does this chapter include? 
+            a. What is the overview of end-to-end ASR systems?
+            b. What is the overview of ASR adaptation?
+        2.1.2 Overview of chapter organization
+    2.2 End-to-end ASR overview (7 pg)
+        2.2.1 How does ASR progress into end-to-end architecture? (1 pg)
+            a. What is the transition of ASR model architecture?
+            b. What are the classes of supervised/unsupervised learning?
+            b. What is the WER progress on a benchmark dataset LibriSpeech?
+            c. What is the role of end-to-end models in this?
+        2.2.2 What is supervised learning ASR model? (4 pg)
+            a. What is supervised learning
+            b. 
+            b. What are some examples of supervised learning?
+                a. What is LAS model?
+                    i. What is the architexture of LAS?
+                    ii. What is the RNN cost fucntion?
+                b. What is Transformer model?
+                    i. How does it improve over LAS?
+                    ii. What is the architecture of Transformer?
+                    iii. What is the CTC cost function?
+                    iv. What is the cross-entropy cost function?
+                    v. What is Whisper?
+                c. What is Conformer?
+                i. How does it improve over Transformer Net?
+                ii. What is the architecture of Conformer?
+        2.2.3 What is unsupervised learning ASR model? (2 pg)
+            a. What is Wav2Vec2?
+                i. What is the model architecture?
+                ii. What is the contrastive learning cost function?
+            b. What is Hubert?
+                i. What is the model architecture?
+                ii. What is K-means clustering?
+    2.3 ASR Adaptation Overview (10 pg)
+        2.3.1 What is ASR adaptation? (1 pg)
+        2.3.2  What is the taxonomy of ASR adaptation? (2 pg)
+        2.3.3 What is layer-wise adaptation? (4 pg)
+            a. Lit review 1
+            b. Lit review 2
+            c. Lit review 3
+        2.3.4 What is TTS synthesized data adaptation? (3 pg)
+            a. Lit review 1
+            b. Lit review 2
+            c. Lit review 3
+    2.4 Summary of chapter (1pg)
+        2.4.1 End-to-end model progress
+        2.4.2 layer-wise adaptation
+        2.4.3 TTS synthesized data adaptation
+
+3. Baseline End-to-end Transformer ASR adaptation (7.5 pg)
+    3.1 Overview of chapter (1 pg)
+        a. What does this chapter include?
+            i. Conformer model adaptation
+            ii. Whisper model adaptation
+        b. Overview of chapter organization
+    3.2 Corpus
+        3.2.1 Existing corpus: (1 pg)
+            a. Librispeech, Tedlium, Common Voice, Switchboard, Fisher, Voxforge, AISHELL, Whisper dataset
+        3.2.2 Corpus selection: (1.5 pg)
+            a. General English Domain: Librispeech
+            b. General Chinese Domain: AISHELL
+            c. OOV/rare words Domain: IMDA part 2
+        3.2.3 What is WER? (1 pg)
+    3.3 Conformer Adaptation (1.5 pg)
+            3.3.1 Network configurations for Confomer models
+            3.3.2 Dataset and pretraining configuration
+            3.3.3 Dataset and adaptation training configuration
+            3.3.4 WER results on Librispeech and IMDA part 2
+            3.3.5 Analysis on results and problems
+    3.4 Whisper Adaptation (1.5 pg)
+            3.4.1 Network configurations for Whisper models
+            3.4.2 Dataset and pretraining configuration
+            3.4.3 Dataset and adaptation training configuration
+            3.4.4 WER results on Librispeech and AISHELL
+            3.4.5 Analysis on results and problems
+    3.5 Summary of chapter (1 pg)
+            3.5.1 Adaptation Baselines
+            3.5.2 Analysis on results and problems
+
+4. ASR Adaptation using layer-wise freezing and TTS synthesized data (12 pg)
+    4.1 Overview of chapter (1 pg)
+        4.1.1 What does this chapter include?
+        4.1.2 Overview of chapter organization
+    4.2 ASR Model Adaptation for Rare Words Using Synthetic Data Generated by Multiple Text-To-Speech Systems (5.5 pg)
+        4.2.1 What is the motivation? (0.5 pg)
+        4.2.2 What is the related work that inspired this work? (0.5 pg)
+        4.2.3 Methodology (2 pg)
+        4.2.4 Experimental Setup (1 pg)
+        4.2.5 Results and Discussion (1.5 pg)
+    4.3 Layerwise Adaptation by using per-layer loss for automatic layer selection (5.5 pg)
+        4.3.1 What is the motivation? (0.5 pg)
+        4.3.2 What is the related work that inspired this work? (0.5 pg)
+        4.3.3 Methodology (2 pg)
+        4.3.4 Experimental Setup (1 pg)
+        4.3.5 Results and Discussion (1.5 pg)
+
+5. Conclusion and future work (3 pg)
+    5.1 Conclusion (2 pg)
+    5.2 Future work (1 pg)
